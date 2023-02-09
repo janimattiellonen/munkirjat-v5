@@ -14,7 +14,7 @@ export const loader = async () => {
 export default function BooksIndex() {
   const books = useLoaderData<typeof loader>();
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+    <div className="ml-4 mt-4">
       <h1>Books</h1>
 
       {books.map ((book) => <li>{book.id}: {book.title}</li>)}
