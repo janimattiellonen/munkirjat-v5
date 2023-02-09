@@ -1,0 +1,2 @@
+- toiminto, joka ehdottaa tietyn kirjailijan kirjoja, joita ei vielä löydy kirjastosta
+- toiminto, joka näyttää, mistä valituista paikoista tietyn kirjan löytää, mitä maksaa ja onko saatavana
