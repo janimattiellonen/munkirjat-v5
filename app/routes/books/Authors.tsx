@@ -1,9 +1,12 @@
 import { PropsWithChildren } from "react";
 
-import { authorBookType } from "~/routes/books/types";
+import { Link } from "@remix-run/react";
+import { authorDTO } from "~/routes/books/types";
+
+import GroupIcon from "@mui/icons-material/Group";
 
 type AuthorsProps = {
-  authors: Array<authorBookType>;
+  authors: Array<authorDTO>;
 };
 
 export const Authors = (
@@ -14,11 +17,17 @@ export const Authors = (
   return (
     <div className="mb-4">
       <p className="text-xs font-bold">
-        {authors
-          .map((author: authorBookType, i: number) => {
-            return `${author.author.firstName} ${author.author.lastName}`;
-          })
-          .join(", ")}
+        <GroupIcon className="mr-1" />
+        {authors.map((author: authorDTO, i: number) => {
+          return (
+            <Link
+              to={`/authors/${author.id}`}
+              key={`author-info-author-name-${i}`}
+            >
+              {author.firstName} {author.lastName}
+            </Link>
+          );
+        })}
       </p>
     </div>
   );
