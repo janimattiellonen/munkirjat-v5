@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useLocation } from "@remix-run/react";
+import { Link, useLoaderData, useLocation } from "@remix-run/react";
 import { getAuthor } from "~/models/authors.server";
 import { getBooksByAuthor } from "~/models/books.server";
 
@@ -38,7 +38,12 @@ export default function AuthorPage() {
         <ul className="mt-8">
           {authorBooks.map((book: bookDTO, index: number) => (
             <li key={`author-page-book-title-${index}`} className="mb-4">
-              {book.title}
+              <Link
+                state={{ backLinkUrl: `/authors/${author.id}` }}
+                to={`/books/${book.id}`}
+              >
+                {book.title}
+              </Link>
             </li>
           ))}
         </ul>

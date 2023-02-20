@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, useCatch, useLoaderData } from "@remix-run/react";
+import { Link, useCatch, useLoaderData, useLocation } from "@remix-run/react";
 
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
@@ -75,6 +75,7 @@ function getLanguage(language: string): string {
 
 export default function BookPage() {
   const book: bookDTO = useLoaderData();
+  const { state } = useLocation();
 
   return (
     <div className="book-div ml-4 mt-4">
@@ -100,7 +101,9 @@ export default function BookPage() {
       <p>{formatDate(book.finishedReading)}</p>
 
       <p className="mt-4">
-        <BackLink url={"/"}>Back</BackLink>
+        <BackLink url={`${state?.backLinkUrl ? state.backLinkUrl : "/"}`}>
+          Back
+        </BackLink>
       </p>
     </div>
   );
