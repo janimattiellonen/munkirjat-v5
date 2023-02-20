@@ -19,8 +19,6 @@ export const loader = async ({ params }: LoaderArgs) => {
     parseInt(params?.authorId || "", 10)
   );
 
-  console.info(`authorBooks223, count: ${authorBooks.length}`);
-
   return json({ author, authorBooks });
 };
 
@@ -29,8 +27,6 @@ export default function AuthorPage() {
     useLoaderData();
 
   const { state } = useLocation();
-
-  console.info(`STATE: ${JSON.stringify(state, null, 2)}`);
 
   return (
     <div className="book-div ml-4 mt-4">

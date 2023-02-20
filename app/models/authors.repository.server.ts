@@ -15,10 +15,6 @@ export async function fetchAuthor(id: number) {
     throw new Error("Failed to retrieve books");
   }
 
-  console.info(
-    `fetchAuthor, id: ${id}, data: ${JSON.stringify(data, null, 2)}`
-  );
-
   return data?.length === 1 ? toDTO(data[0]) : null;
 }
 

@@ -37,8 +37,6 @@ export async function fetchBooks() {
     throw new Error("Failed to retrieve books");
   }
 
-  console.info(`data: ${JSON.stringify(data, null, 2)}`);
-
   const mapped = data && data.map((item) => toDTO(item));
 
   return mapped || [];
