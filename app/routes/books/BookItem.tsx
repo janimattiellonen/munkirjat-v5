@@ -15,7 +15,7 @@ export const BookItem = (
   return (
     <div>
       <h2>
-        <Link state={{ backLinkUrl: "/books" }} to={`/books/${props.book.id}`}>
+        <Link state={{ backLinkUrl: "/" }} to={`/books/${props.book.id}`}>
           {props.book.title}
         </Link>
       </h2>

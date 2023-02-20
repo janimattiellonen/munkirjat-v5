@@ -76,7 +76,7 @@ function getLanguage(language: string): string {
 export default function BookPage() {
   const book: bookDTO = useLoaderData();
   const { state } = useLocation();
-
+  console.info(`state: ${JSON.stringify(state, null, 2)}`);
   return (
     <div className="book-div ml-4 mt-4">
       <h1 className="text-4xl font-bold">{book.title}</h1>
