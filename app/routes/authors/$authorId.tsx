@@ -1,10 +1,12 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useLocation } from "@remix-run/react";
 import { getAuthor } from "~/models/authors.server";
 import { getBooksByAuthor } from "~/models/books.server";
 
 import { authorDTO, bookDTO } from "~/routes/books/types";
+
+import { BackLink } from "~/components/BackLink";
 
 export const loader = async ({ params }: LoaderArgs) => {
   const author = await getAuthor(parseInt(params?.authorId || "", 10));
@@ -21,21 +23,14 @@ export const loader = async ({ params }: LoaderArgs) => {
 
   return json({ author, authorBooks });
 };
-/*
-export const authorBooksLoader = async ({ params }: LoaderArgs) => {
-  const authorBooks = await getBooksByAuthor(
-    parseInt(params?.authorId || "", 10)
-  );
 
-  return json(authorBooks);
-};
-*/
 export default function AuthorPage() {
   const { author, authorBooks }: { author: authorDTO; authorBooks: bookDTO[] } =
     useLoaderData();
-  //  const books: bookDTO[] = useLoaderData<typeof authorBooksLoader>();
 
-  console.info(`author: ${JSON.stringify(author, null, 2)}`);
+  const { state } = useLocation();
+
+  console.info(`STATE: ${JSON.stringify(state, null, 2)}`);
 
   return (
     <div className="book-div ml-4 mt-4">
@@ -43,13 +38,19 @@ export default function AuthorPage() {
         {author.firstName} {author.lastName}
       </h1>
 
-      {authorBooks &&
-        authorBooks.map((book: bookDTO, index: number) => (
-          <div>
-            {book.title}
-            <br />
-          </div>
-        ))}
+      {authorBooks && (
+        <ul className="mt-8">
+          {authorBooks.map((book: bookDTO, index: number) => (
+            <li key={`author-page-book-title-${index}`} className="mb-4">
+              {book.title}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <BackLink url={`${state?.backLinkUrl ? state.backLinkUrl : "/books"}`}>
+        Back
+      </BackLink>
     </div>
   );
 }

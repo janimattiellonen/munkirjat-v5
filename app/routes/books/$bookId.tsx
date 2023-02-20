@@ -8,7 +8,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { getBook } from "~/models/books.server";
 import { Authors } from "~/routes/books/Authors";
-
+import { BackLink } from "~/components/BackLink";
 import { bookDTO } from "~/routes/books/types";
 
 export const loader = async ({ params }: LoaderArgs) => {
@@ -80,7 +80,10 @@ export default function BookPage() {
     <div className="book-div ml-4 mt-4">
       <h1 className="text-4xl font-bold">{book.title}</h1>
 
-      <Authors authors={book.authors}></Authors>
+      <Authors
+        backLinkUrl={`/books/${book.id}`}
+        authors={book.authors}
+      ></Authors>
 
       <p>
         <MenuBookIcon className="mr-1" />
@@ -97,10 +100,7 @@ export default function BookPage() {
       <p>{formatDate(book.finishedReading)}</p>
 
       <p className="mt-4">
-        <Link to="/books">
-          <ArrowBackIcon />
-          Back
-        </Link>
+        <BackLink url={"/books"}>Back</BackLink>
       </p>
     </div>
   );
