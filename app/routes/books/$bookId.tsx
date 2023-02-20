@@ -100,7 +100,7 @@ export default function BookPage() {
       <p>{formatDate(book.finishedReading)}</p>
 
       <p className="mt-4">
-        <BackLink url={"/books"}>Back</BackLink>
+        <BackLink url={"/"}>Back</BackLink>
       </p>
     </div>
   );

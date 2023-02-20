@@ -19,7 +19,7 @@ export const BookItem = (
           {props.book.title}
         </Link>
       </h2>
-      <Authors backLinkUrl="/books" authors={props.book.authors}></Authors>
+      <Authors backLinkUrl="/" authors={props.book.authors}></Authors>
     </div>
   );
 };

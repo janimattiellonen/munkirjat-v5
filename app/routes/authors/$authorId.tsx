@@ -48,7 +48,7 @@ export default function AuthorPage() {
         </ul>
       )}
 
-      <BackLink url={`${state?.backLinkUrl ? state.backLinkUrl : "/books"}`}>
+      <BackLink url={`${state?.backLinkUrl ? state.backLinkUrl : "/"}`}>
         Back
       </BackLink>
     </div>
