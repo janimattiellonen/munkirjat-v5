@@ -9,7 +9,6 @@ export function createConnection() {
 }
 
 export function createFunctionConnection() {
-  const supabaseFunctionsUrl = process.env.SUPABASE_FUNCTIONS_URL!;
   const supabaseUrl = process.env.SUPABASE_URL!;
 
   const supabaseKey = process.env.SUPABASE_KEY!;

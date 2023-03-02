@@ -9,6 +9,33 @@ type BookCountProps = {
   stats: statsDTO;
 };
 
+const mapLanguage = (languageCode: string): string => {
+  const mapping: { [index: string]: string } = {
+    fi: "Finnish",
+    se: "Swedish",
+    en: "English",
+  };
+
+  return mapping[languageCode] ?? "";
+};
+
+type StatItemProps = {
+  label: string;
+  value: number;
+};
+
+const StatItem = ({ label, value }: PropsWithChildren<StatItemProps>) => {
+  return (
+    <p
+      key={label}
+      className="flex justify-between [min-width:5.625rem] [max-width:8.125rem]"
+    >
+      <span className="block">{label}</span>
+      <span className="block">{value}</span>
+    </p>
+  );
+};
+
 const BookCount = ({ stats }: PropsWithChildren<BookCountProps>) => {
   const initialValue = 0;
 
@@ -19,44 +46,24 @@ const BookCount = ({ stats }: PropsWithChildren<BookCountProps>) => {
 
   return (
     <div>
-      <h3 className="font-bold">Books</h3>
-
-      <p>Total count: {totalBookCount}</p>
+      <h3 className="mt-8 mb-4 font-bold">Books</h3>
 
       {stats.bookCount.map((item) => (
-        <p key={item.language}>
-          {item.language}: {item.count}
-        </p>
+        <StatItem label={mapLanguage(item.language)} value={item.count} />
       ))}
+
+      <StatItem label="Total" value={totalBookCount} />
     </div>
   );
 };
 export const Stats = ({ stats }: PropsWithChildren<StatsProps>) => {
-  console.info(`STATS: ${JSON.stringify(stats, null, 2)}`);
   return (
     <div>
-      <h2 className="text-2xl font-bold">Stats</h2>
+      <h2 className="mt-8 mb-4 text-2xl font-bold">Stats</h2>
 
-      <p>Authors: {stats.authorCount}</p>
+      <StatItem label="Authors" value={stats.authorCount} />
 
       <BookCount stats={stats} />
     </div>
   );
 };
-
-/*
-TATS: {
-  "bookCount": [
-    {
-      "en": 169
-    },
-    {
-      "se": 169
-    },
-    {
-      "fi": 64
-    }
-  ],
-  "authorCount": 139
-}
- */

@@ -11,12 +11,7 @@ export async function fetchStats() {
 
   if (error) {
     console.info(`Error: ${JSON.stringify(error, null, 2)}`);
-    throw new Error(
-      "Url: " +
-        supabaseFunctionsUrl +
-        ", Failed to retrieve stats: " +
-        JSON.stringify(error, null, 2)
-    );
+    throw new Error("Failed to retrieve stats");
   }
 
   console.info(`fetchStats data: ${JSON.stringify(data, null, 2)}`);
