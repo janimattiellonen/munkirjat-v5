@@ -10,7 +10,9 @@ export function createConnection() {
 
 export function createFunctionConnection() {
   const supabaseFunctionsUrl = process.env.SUPABASE_FUNCTIONS_URL!;
+  const supabaseUrl = process.env.SUPABASE_URL!;
+
   const supabaseKey = process.env.SUPABASE_KEY!;
 
-  return createClient(`${supabaseFunctionsUrl}/hello-world`, supabaseKey);
+  return createClient(supabaseUrl, supabaseKey);
 }
