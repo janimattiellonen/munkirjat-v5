@@ -4,10 +4,81 @@
 
 
 - Statistiikka:
-  - luettujen kirjojen määrä
-    - sivujen määrä
+  - luettujen kirjojen määrä (ei tarvita, koska lähes kaikki kirjat luettu)
+  - sivujen määrä
+    - select sum(page_count) from book;
   - eri kielet
-    - eri kielellä olevien kirjojen määrä
+    - eri kielillä olevien kirjojen määrä
+      - select count(*) as book_count, language from book group by language;
 
 
 - Kirjat kirjailijan mukaan
+
+- viimeksi luetut kirjat
+  - vaikkapa 10 viimeisintä
+
+
+- top 10 parasta kirjaa
+  - ratingin mukaan
+
+
+
+https://supabase.com/docs/reference/javascript/select
+
+
+Edge funktiot
+
+  - https://supabase.com/docs/guides/functions/quickstart
+  - https://supabase.com/docs/guides/functions/quickstart#invoking-remote-functions
+  - https://supabase.com/docs/guides/functions/local-development
+
+
+Testaa lokaalisti
+
+
+  Alkuvalmistelut:
+
+    - npx supabase init (ensimmäisen kerran!)
+    - npx supabase start
+
+  npx supabase functions serve hello-world --no-verify-jwt --debug
+    - laita hello-world -niminen edge funktio pyörimään lokaalisti
+      - supabase/functions/hello-world/index.ts
+
+  Luo uusi edge funktio:
+    npx supabase functions new hello-world
+
+Kutsu edge funktioita:
+
+ - token löytyy .env-tiedostosta
+  - SUPABASE_KEY
+
+
+  Curl:
+
+  -- remote
+
+  curl --request POST 'https://munkirjat-v5.functions.supabase.co/hello-world' \
+    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2amV2YmJ1d3pzc3pta2J3cmZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU5NTM3MDUsImV4cCI6MTk5MTUyOTcwNX0.3eMwXO3CQLc-WVw3BzExVd7LmntKxlaG1UtuScH-ipM' \
+    --header 'Content-Type: application/json' \
+    --data '{ "name":"Functions" }'
+
+
+  -- local
+
+  curl --request POST 'http://localhost:54321/functions/v1/hello-world' \
+    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2amV2YmJ1d3pzc3pta2J3cmZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU5NTM3MDUsImV4cCI6MTk5MTUyOTcwNX0.3eMwXO3CQLc-WVw3BzExVd7LmntKxlaG1UtuScH-ipM' \
+    --header 'Content-Type: application/json' \
+    --data '{ "name":"Functions" }'
+
+
+  Api:
+
+  import { createClient } from '@supabase/supabase-js'
+
+  // Create a single supabase client for interacting with your database
+  const supabase = createClient('https://xyzcompany.supabase.co', 'public-anon-key')
+
+  const { data, error } = await supabase.functions.invoke('hello-world', {
+    body: { name: 'Functions' },
+  })

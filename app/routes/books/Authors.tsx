@@ -10,6 +10,7 @@ import GroupIcon from "@mui/icons-material/Group";
 type AuthorsProps = {
   authors: Array<authorDTO>;
   backLinkUrl?: string;
+  className?: string;
 };
 
 const P = styled.p({
@@ -23,12 +24,12 @@ const P = styled.p({
 export const Authors = (
   props: PropsWithChildren<AuthorsProps>
 ): JSX.Element => {
-  const { authors, backLinkUrl } = props;
+  const { authors, backLinkUrl, className } = props;
 
   return (
-    <div className="mb-4">
+    <div className={className}>
       <P className="text-xs font-bold">
-        <GroupIcon className="mr-1" />
+        <GroupIcon className="mr-1" titleAccess="Authors" />
         {authors.map((author: authorDTO, i: number) => {
           return (
             <Link

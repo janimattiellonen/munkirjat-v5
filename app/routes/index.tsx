@@ -3,14 +3,20 @@ import { useLoaderData } from "@remix-run/react";
 
 import { getBooks } from "~/models/books.server";
 
+import { getStats } from "~/models/stats.server";
+
 import { BookItem } from "~/routes/books/BookItem";
 
 import { bookDTO } from "~/routes/books/types";
 
+import { Stats } from "~/components/Stats";
+
 export const loader = async () => {
   const books = await getBooks();
 
-  return json(books);
+  const stats = await getStats();
+
+  return json({ books, stats });
 };
 
 export function ErrorBoundary({ error }: { error: Error }) {
@@ -37,15 +43,17 @@ const split = (books: bookDTO[]): [bookDTO[], bookDTO[]] => {
 };
 
 export default function IndexPage() {
-  const books = useLoaderData();
+  const { books, stats } = useLoaderData();
 
   const columns = split(books);
+
+  console.info(`STATS: ${JSON.stringify(stats, null, 2)}`);
 
   return (
     <div className="book-div ml-4 mt-4">
       <h1 className="text-4xl font-bold">Books</h1>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         {columns.map((item, index) => (
           <ul key={`column-${index}`} className="mt-8">
             {item.map((book: bookDTO) => (
@@ -55,6 +63,7 @@ export default function IndexPage() {
             ))}
           </ul>
         ))}
+        <Stats stats={stats} />
       </div>
     </div>
   );

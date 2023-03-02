@@ -4,7 +4,8 @@ import { Link, useCatch, useLoaderData, useLocation } from "@remix-run/react";
 
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Chip from "@mui/material/Chip";
+import Rating from "@mui/material/Rating";
 
 import { getBook } from "~/models/books.server";
 import { Authors } from "~/routes/books/Authors";
@@ -76,27 +77,41 @@ function getLanguage(language: string): string {
 export default function BookPage() {
   const book: bookDTO = useLoaderData();
   const { state } = useLocation();
-  console.info(`state: ${JSON.stringify(state, null, 2)}`);
+  console.info(`book: ${JSON.stringify(book, null, 2)}`);
   return (
     <div className="book-div ml-4 mt-4">
-      <h1 className="text-4xl font-bold">{book.title}</h1>
+      <h1 className="text-4xl font-bold">{book.title} </h1>
 
       <Authors
         backLinkUrl={`/books/${book.id}`}
         authors={book.authors}
       ></Authors>
 
+      <div className="flex gap-2 align-baseline">
+        {book.rating && (
+          <Rating
+            name="read-only"
+            value={book.rating}
+            readOnly
+            style={{ alignSelf: "center" }}
+          />
+        )}
+
+        {book.isRead && (
+          <Chip
+            style={{ background: "#B0B0B0", color: "black" }}
+            icon={<CheckCircleOutlineIcon titleAccess="Is read" />}
+            label="Is read"
+          />
+        )}
+      </div>
       <p>
         <MenuBookIcon className="mr-1" />
         {book.pageCount} pages, {getLanguage(book.language)},{" "}
         {getFormat(book.format)}
       </p>
-      <p>{book.rating}</p>
       <p>{getPrice(book.price)}</p>
-      <p>
-        Is read:{" "}
-        {book.isRead ? <CheckCircleOutlineIcon titleAccess="Is read" /> : "No"}
-      </p>
+
       <p>{formatDate(book.startedReading)}</p>
       <p>{formatDate(book.finishedReading)}</p>
 

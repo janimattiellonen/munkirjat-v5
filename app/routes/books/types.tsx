@@ -82,3 +82,13 @@ export type bookDTO = {
 
   authors: Array<authorDTO>;
 };
+
+type bookCountType = Array<{
+  language: string;
+  count: number;
+}>;
+
+export type statsDTO = {
+  authorCount: number;
+  bookCount: bookCountType;
+};

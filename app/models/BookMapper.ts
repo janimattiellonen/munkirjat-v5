@@ -11,6 +11,7 @@ export const toDTO = (raw: any): bookDTO => {
     price: raw.price,
     format: raw.format,
     isRead: raw.is_read,
+    rating: raw.rating,
     authors: raw.author_book.map((authorBook: any) => {
       return {
         id: authorBook.author.id,
