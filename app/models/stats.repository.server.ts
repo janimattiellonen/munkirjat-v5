@@ -1,7 +1,7 @@
-import { createApiConnection } from "~/models/utils";
+import { createFunctionConnection } from "~/models/utils";
 
 export async function fetchStats() {
-  const supabase = createApiConnection();
+  const supabase = createFunctionConnection();
 
   const { data, error } = await supabase.functions.invoke("hello-world", {
     body: { name: "Functions" },

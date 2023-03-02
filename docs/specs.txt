@@ -58,10 +58,12 @@ Kutsu edge funktioita:
 
   -- remote
 
-  curl --request POST 'https://munkirjat-v5.functions.supabase.co/hello-world' \
+
+  curl --request POST 'https://zvjevbbuwzsszmkbwrfg.functions.supabase.co/hello-world' \
     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2amV2YmJ1d3pzc3pta2J3cmZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU5NTM3MDUsImV4cCI6MTk5MTUyOTcwNX0.3eMwXO3CQLc-WVw3BzExVd7LmntKxlaG1UtuScH-ipM' \
     --header 'Content-Type: application/json' \
     --data '{ "name":"Functions" }'
+
 
 
   -- local
