@@ -7,10 +7,15 @@ export async function fetchStats() {
     body: { name: "Functions" },
   });
 
+  const supabaseFunctionsUrl = process.env.SUPABASE_FUNCTIONS_URL!;
+
   if (error) {
     console.info(`Error: ${JSON.stringify(error, null, 2)}`);
     throw new Error(
-      "Failed to retrieve stats: " + JSON.stringify(error, null, 2)
+      "Url: " +
+        supabaseFunctionsUrl +
+        ", Failed to retrieve stats: " +
+        JSON.stringify(error, null, 2)
     );
   }
 
