@@ -51,6 +51,8 @@ serve(async (req) => {
           },
         }
       );
+    } catch (err: any) {
+      return new Response(String(err?.message ?? err), { status: 500 });
     } finally {
       connection.release();
     }
